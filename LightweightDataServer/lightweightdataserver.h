@@ -4,11 +4,13 @@
 #include <QDebug>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include "datacollector.h"
+
 class LightweightDataServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    LightweightDataServer(int port);
+    LightweightDataServer(int port, DataCollector *dataCollector);
     void run();
 
 public slots:
@@ -16,6 +18,7 @@ public slots:
 
 private:
     int port;
+    DataCollector *dataCollector;
 };
 
 #endif // LIGHTWEIGHTDATASERVER_H

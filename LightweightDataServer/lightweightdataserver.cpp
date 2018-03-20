@@ -1,8 +1,9 @@
 #include "lightweightdataserver.h"
 
-LightweightDataServer::LightweightDataServer(int port)
+LightweightDataServer::LightweightDataServer(int port, DataCollector *dataCollector)
 {
     this->port = port;
+    this->dataCollector = dataCollector;
 }
 
 void LightweightDataServer::run() {
@@ -12,6 +13,7 @@ void LightweightDataServer::run() {
 
 void LightweightDataServer::nConnection() {
     QTcpSocket *socket = this->nextPendingConnection();
-    socket->write("hello world\n");
+    QList<QString> data = this->dataCollector->collect();
+    socket->write(this->dataCollector->toByteArray(data));
     socket->close();
 }

@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include "lightweightdataserver.h"
+#include "ddatacollector.h"
 
 float getSimpleFloatValue(void) {
     return 1337;
@@ -7,9 +8,8 @@ float getSimpleFloatValue(void) {
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    LightweightDataServer *mServer = new LightweightDataServer();
+    LightweightDataServer *mServer = new LightweightDataServer(1234,new DDataCollector());
     mServer->run();
-    //mServer.getSimpleFloatValue = &getSimpleFloatValue;
 
     return a.exec();
 }
